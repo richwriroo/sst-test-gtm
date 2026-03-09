@@ -1,7 +1,14 @@
-import functions_framework
-from flask import render_template
+import os
+from flask import Flask
 
-@functions_framework.http
-def app(request):
+app = Flask(__name__)
+
+@app.route('/')
+def hello_world():
+    return 'Hello, Cloud Run with Python!'
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8080))
+    app.run(debug=True, host='0.0.0.0', port=port)
     render_template('index.html', content="Hello World!")
 
